@@ -1,0 +1,58 @@
+
+#pragma experiment("TRAITS")
+
+import Electrical
+
+from "parts\ShiftReg\PINE_SHIFT_74HC595_driver.ato" import PINE_SHIFT_74HC595_package
+
+module App:
+    """
+    Simple shift regulator 74HC595 fpr lesson
+    """
+     # Inputs
+    ser_d_in = new Electrical  # Serial data in
+    shift_clk = new Electrical  # Shift clock
+    latch = new Electrical  # Latch clock
+    oe = new Electrical  # Output enable
+    srclr = new Electrical  # Shift clear
+
+    # Outputs
+    q_out_data = new Electrical  # Serial out
+    q0 = new Electrical  # Parallel out 0
+    q1 = new Electrical
+    q2 = new Electrical
+    q3 = new Electrical
+    q4 = new Electrical
+    q5 = new Electrical
+    q6 = new Electrical
+    q7 = new Electrical  # Parallel out 7
+    
+    # Питание
+    vcc = new Electrical
+    gnd = new Electrical
+
+module ShiftReg from HYETA:
+    """
+    
+    """ 
+
+#    Подключение физически описанных контактов драйвера к электрическим
+module HYETA from App:
+    package = new PINE_SHIFT_74HC595_package
+    ser_d_in ~ package.14
+    shift_clk ~ package.11
+    latch ~ package.12
+    oe ~ package.13
+    srclr ~ package.10
+    q_out_data ~ package.9
+    q0 ~ package.15
+    q1 ~ package.1
+    q2 ~ package.2
+    q3 ~ package.3
+    q4 ~ package.4
+    q5 ~ package.5
+    q6 ~ package.6
+    q7 ~ package.7
+    vcc ~ package.16
+    gnd ~ package.8
+

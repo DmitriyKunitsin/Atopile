@@ -1,25 +1,47 @@
-requires-atopile: "0.12.4"
-
+requires-atopile: 0.12.4
 paths:
   src: ./
   layout: ./layouts
 
+
 builds:
   # default:
+
   #   entry: buttons.ato:VerticalButton
+
   default:
-    entry: main.ato:ShiftReg
+    entry: ShiftReg.ato:ShiftRegister
     hide_designators: true
-    exclude_checks: ["PCB.requires_drc_check"]
+    exclude_checks: [PCB.requires_drc_check]
+  usage:
+    entry: main.ato:Usage
+    hide_designators: true
+    exclude_checks: [PCB.requires_drc_check]
+dependencies:
+- type: registry
+  identifier: atopile/buttons
+  release: 0.3.1
 # This metadata is only required for publishing
+
 # Uncomment it and fill out the fields to publish your package
+
 # package:
+
 #   identifier: # fill me!/digital_clock
+
 #   repository: # fill me!
+
 #   version: "0.1.0"  # recommended first version
+
 #   authors:
+
 #     - name: Dmitriy Kunitsin
+
 #       email: kunicind1996@gmail.com
+
 #   summary: # fill me!
+
 #   license: MIT license
+
 #   homepage: # fill me!
+

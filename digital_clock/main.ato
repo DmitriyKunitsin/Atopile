@@ -1,58 +1,26 @@
-
-#pragma experiment("TRAITS")
+#pragma experiment("BRIDGE_CONNECT")
+#pragma experiment("FOR_LOOP")
 
 import Electrical
+import ElectricPower
+import Resistor
 
-from "parts\ShiftReg\PINE_SHIFT_74HC595_driver.ato" import PINE_SHIFT_74HC595_package
+from "atopile/buttons/buttons.ato" import HorizontalButton
+from "ShiftReg.ato" import Shift_reg_driver
 
-module App:
-    """
-    Simple shift regulator 74HC595 fpr lesson
-    """
-     # Inputs
-    ser_d_in = new Electrical  # Serial data in
-    shift_clk = new Electrical  # Shift clock
-    latch = new Electrical  # Latch clock
-    oe = new Electrical  # Output enable
-    srclr = new Electrical  # Shift clear
+module Usage:
+    power = new ElectricPower
 
-    # Outputs
-    q_out_data = new Electrical  # Serial out
-    q0 = new Electrical  # Parallel out 0
-    q1 = new Electrical
-    q2 = new Electrical
-    q3 = new Electrical
-    q4 = new Electrical
-    q5 = new Electrical
-    q6 = new Electrical
-    q7 = new Electrical  # Parallel out 7
+    btn_pullup = new HorizontalButton
+    pullup_resistor = new Resistor
+    pullup_signal = new Electrical
+
+    pullup_resistor.resistance = 10kohm +/- 5%
+    pullup_resistor.package = "0402"
     
-    # Питание
-    vcc = new Electrical
-    gnd = new Electrical
+    power.hv ~> pullup_resistor ~> pullup_signal
+    pullup_signal ~> btn_pullup ~> power.lv
 
-module ShiftReg from HYETA:
-    """
-    
-    """ 
-
-#    Подключение физически описанных контактов драйвера к электрическим
-module HYETA from App:
-    package = new PINE_SHIFT_74HC595_package
-    ser_d_in ~ package.14
-    shift_clk ~ package.11
-    latch ~ package.12
-    oe ~ package.13
-    srclr ~ package.10
-    q_out_data ~ package.9
-    q0 ~ package.15
-    q1 ~ package.1
-    q2 ~ package.2
-    q3 ~ package.3
-    q4 ~ package.4
-    q5 ~ package.5
-    q6 ~ package.6
-    q7 ~ package.7
-    vcc ~ package.16
-    gnd ~ package.8
-
+    shiftRegisterCustom = new Shift_reg_driver
+    power.hv ~> shiftRegisterCustom.vcc
+    power.lv ~> shiftRegisterCustom.gnd

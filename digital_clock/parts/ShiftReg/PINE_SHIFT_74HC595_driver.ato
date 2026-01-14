@@ -1,14 +1,12 @@
 #pragma experiment("TRAITS")
 
 import is_atomic_part 
-import has_part_picked # сообщает компилятору, что он может выбрать эту деталь JLCPCB для заполнения этого места
 
 component PINE_SHIFT_74HC595_package:
     # Атрибуты manufacturer и mpn вместе полностью определяют, какой это компонент. 
     # Если вы создаете класс компонента для конкретного компонента, обычно рекомендуется включить как минимум либо lcsc_id, либо mpn + manufacturer.
     
     trait is_atomic_part< manufacturer="Kunitsin", partnumber="74HC595", footprint="SOIC-16_3.9x9.9mm_P1.27mm.kicad_mod", symbol="74xx:74HC595", model="SO-16_3.9x9.9mm_P1.27mm.step">
-    # trait has_part_picked::by_supplier<supplier_id="lcsc", supplier_partno="C5144558", manufacturer="ALPSALPINE", partno="74HC595D">
     # pins
     pin 1
     pin 2
